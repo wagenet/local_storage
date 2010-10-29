@@ -342,10 +342,10 @@ SCLocalStorage.RecordArray = SC.Object.extend(SC.Enumerable, SC.Array, {
 
   _rawResultsDidChange: function(){
     var rawResults = this.get('rawResults');
-    this.set('status', SC.Record.READY);
+    this.set('status', SCLocalStorage.READY);
   }.observes('rawResults'),
 
-  status: SC.Record.EMPTY,
+  status: SCLocalStorage.EMPTY,
 
   length: function(){
     var rawResults = this.get('rawResults');

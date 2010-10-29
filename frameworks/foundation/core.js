@@ -6,3 +6,8 @@
 
 window.SCLocalStorage = window.SCLocalStorage || SC.Object.create();
 window.SCLS = window.SCLS || window.SCLocalStorage ;
+
+SCLocalStorage.mixin({
+  EMPTY:            0x0100, // 256
+  READY:            0x0200, // 512
+});
