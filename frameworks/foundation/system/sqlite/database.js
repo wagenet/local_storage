@@ -134,7 +134,6 @@ SCLocalStorage.SQLiteDatabase = SC.Object.extend(
     for(name in fields) fieldsSql.push(name+' '+fields[name]);
 
     sql = 'CREATE TABLE '+table+'('+fieldsSql.join(', ')+');';
-    console.log(sql);
 
     // Empty queryError hides warnings about existing table
     this.transaction(sql, { queryError: function(){} });
@@ -179,8 +178,6 @@ SCLocalStorage.SQLiteDatabase = SC.Object.extend(
     if(!SC.empty(whereSql)) sql += ' WHERE '+whereSql;
     sql += ';';
 
-    console.log(sql, sqlValues);
-
     var ret = SCLocalStorage.RecordArray.create();
 
     this.transaction([[sql, sqlValues]], { queryData: function(t, results){ ret.set('rawResults', results); } });
@@ -216,8 +213,6 @@ SCLocalStorage.SQLiteDatabase = SC.Object.extend(
     placeholders = sqlValues.map(function(){ return '?'; });
 
     sql = 'INSERT INTO '+table+fieldsSql+' VALUES('+placeholders.join(', ')+');';
-
-    console.log(sql, sqlValues);
 
     this.transaction([[sql, sqlValues]]);
   },
@@ -278,8 +273,6 @@ SCLocalStorage.SQLiteDatabase = SC.Object.extend(
 
     sql = 'UPDATE '+table+' SET '+updateSql+' WHERE '+whereSql+';';
 
-    console.log(sql, sqlValues);
-
     this.transaction([[sql, sqlValues]]);
   },
 
@@ -316,8 +309,6 @@ SCLocalStorage.SQLiteDatabase = SC.Object.extend(
     }
 
     sql = 'DELETE FROM '+table+' WHERE '+whereSql+';';
-
-    console.log(sql);
 
     this.transaction([[sql, sqlValues]]);
   },

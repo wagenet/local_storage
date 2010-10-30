@@ -6,8 +6,5 @@
 
 config :all, :required => ['sproutcore/runtime']
 
-# CORE FRAMEWORKS
-config :foundation, :required => []
-
 # WRAPPER FRAMEWORKS
 config :local_storage, :required => [:foundation]
