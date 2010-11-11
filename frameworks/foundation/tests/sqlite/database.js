@@ -35,10 +35,8 @@ test("creates database with proper params", function(){
   db = SCLocalStorage.SQLiteDatabase.create({
     name: 'TestDatabase',
     size: 20000,
-    version: '1.0'
   });
   equals(db._db.constructor.name, 'Database', "should be a Database");
-  equals(db._db.version, "1.0", "should have correct version");
   // Unfortunately we can't check the name or size
 });
 

@@ -35,8 +35,11 @@ SCLocalStorage.SQLiteDatabase = SC.Object.extend(
     Optional version of database
     @property {String}
   */
-  version: null,
-
+  version: function(key, value){
+    if (!this._db) return null;
+    if (value !== undefined) this._db.changeVersion(this._db.version, value, function(){}, function(){}, function(){});
+    return this._db.version;
+  }.property(),
 
   /**
     The raw database object
@@ -56,7 +59,6 @@ SCLocalStorage.SQLiteDatabase = SC.Object.extend(
             size = this.get('size'),
             version = this.get('version') || '';
         this._db = window.openDatabase(name, version, name, size);
-        if (SC.empty(version)) this.set('version', this._db.version);
       }
     } catch (e) {
       alert("Unknown error "+e+".");
@@ -126,7 +128,7 @@ SCLocalStorage.SQLiteDatabase = SC.Object.extend(
     @param {String} table The name of the new table
     @param {Hash} fields Field definitions
   */
-  createTable: function(table, fields){
+  createTable: function(table, fields, callbacks){
     var fieldsSql = [], sql,
         length = fields.length,
         name;
@@ -136,7 +138,7 @@ SCLocalStorage.SQLiteDatabase = SC.Object.extend(
     sql = 'CREATE TABLE '+table+'('+fieldsSql.join(', ')+');';
 
     // Empty queryError hides warnings about existing table
-    this.transaction(sql, { queryError: function(){} });
+    this.transaction(sql, { queryError: function(){} }, callbacks);
   },
 
   /**
