@@ -329,6 +329,9 @@ SCLocalStorage.SQLiteDatabase = SC.Object.extend(
 });
 
 
+SCLocalStorage.SQLiteDatabase.isSupported = !!openDatabase;
+
+
 SCLocalStorage.RecordArray = SC.Object.extend(SC.Enumerable, SC.Array, {
 
   rawResults: null,
