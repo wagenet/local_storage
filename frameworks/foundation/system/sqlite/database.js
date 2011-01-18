@@ -133,12 +133,15 @@ SCLocalStorage.SQLiteDatabase = SC.Object.extend(
         length = fields.length,
         name;
 
+    if (!callbacks) callbacks = {};
+    // Empty queryError hides warnings about existing table
+    if (!callbacks.queryError) callbacks.queryError = function(){};
+
     for(name in fields) fieldsSql.push(name+' '+fields[name]);
 
     sql = 'CREATE TABLE '+table+'('+fieldsSql.join(', ')+');';
 
-    // Empty queryError hides warnings about existing table
-    this.transaction(sql, { queryError: function(){} }, callbacks);
+    this.transaction(sql, callbacks);
   },
 
   /**
